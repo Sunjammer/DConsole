@@ -47,7 +47,7 @@ package com.furusystems.dconsole2.core.gui {
 		public function onMessage(d:MessageData):void {
 			switch (d.message) {
 				case Notifications.SHOW_DOCKING_GUIDE:
-					show(d.data as int);
+					show(d.data);
 					break;
 				case Notifications.HIDE_DOCKING_GUIDE:
 					hide();

@@ -45,7 +45,7 @@
 			paramsField.text = o.toString();
 			for (var i:int = 0; i < params.length; i++)
 			{
-				var cf:ControlField = new ControlField(params[i],typeof targetObj[params[i]]);
+				var cf:ControlField = new ControlField(params[i], targetObj[params[i]]);
 				cf.addEventListener(ControllerEvent.VALUE_CHANGE, onCfChange,false,0,true);
 				contents.addChild(cf);
 				controlFields.push(cf);

@@ -49,7 +49,7 @@
 						break;
 				}
 			}
-			var out:Array = a.split(UTIL);
+			var out:Array = a.split('|');
 			var str:String = "";
 			for (var i:int = 0; i < out.length; i++) {
 				str = out[i];
@@ -137,7 +137,7 @@
 		}
 		
 		private static function findCommand(input:String):int {
-			return input.split(SPACE).shift().length;
+			return input.split(' ').shift().length;
 		}
 	
 	}

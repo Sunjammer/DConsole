@@ -21,16 +21,16 @@ package com.furusystems.dconsole2.core.style.themes {
 		
 		private function populateFromNode(node:XML):Object {
 			var o:Object;
-			if (node.text() != undefined) {
+			if (node.text != undefined) {
 				try {
 					o = _styleManager.colors.getColor(node.toString());
 				} catch (e:Error) {
 					//color lookup failed, so assume the theme file has a hex color
 					o = Number(node.toString());
 				}
-			} else if (node.*.length() > 0) {
+			} else if (node.everything.length() > 0) {
 				o = {};
-				for each (var n:XML in node.*) {
+				for each (var n:XML in node.everything) {
 					o[n.localName()] = populateFromNode(n);
 				}
 			}

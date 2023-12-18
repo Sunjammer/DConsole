@@ -44,7 +44,7 @@ package com.furusystems.dconsole2.core.persistence {
 		}
 		
 		private function consolidate():void {
-			if (_fieldName in _sharedObject.data) {
+			if (_sharedObject.data[_fieldName]) {
 				super.value = _sharedObject.data[_fieldName];
 			} else {
 				super.value = _initValue;

@@ -42,7 +42,7 @@ package com.furusystems.dconsole2.core.helpmanager {
 			for (var title:String in topics) {
 				sorted.push(topics[title]);
 			}
-			sorted.sortOn("title");
+			//sorted.sortOn("title");
 			for (var i:int = sorted.length; i--; ) {
 				out += "\t" + sorted[i].title;
 			}

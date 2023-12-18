@@ -7,11 +7,11 @@ package com.furusystems.logging.slf4as.utils {
 	 */
 	public class TagCreator {
 		static public function getTag(owner:Object):String {
-			if (owner is Class) {
+			/*if (owner is Class) {
 				return describeType(owner).@name.split("::").pop();
-			} else {
+			} else {*/
 				return "" + owner;
-			}
+			//}
 		}
 	
 	}

@@ -36,10 +36,14 @@ package com.furusystems.dconsole2.core.logmanager {
 		}
 		
 		public function get prevMessage():ConsoleMessage {
-			if (messages.length > 0)
+			if (messages.length > 0){
+
 				return messages[messages.length - 1];
-			else
+			}
+			else{
+
 				return null;
+			}
 		}
 		
 		public function destroy():void {

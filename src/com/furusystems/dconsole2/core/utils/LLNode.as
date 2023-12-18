@@ -184,7 +184,7 @@ package com.furusystems.dconsole2.core.utils {
 		 * Executes a callback on the data of every node following this node
 		 * @param	func
 		 */
-		public function forEach(func:Function):void {
+		public function forEach(func:*):void {
 			if (func.length != 1) {
 				throw new ArgumentError("Function must have exactly one argument");
 			}

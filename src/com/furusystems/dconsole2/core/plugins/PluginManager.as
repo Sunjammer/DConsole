@@ -29,12 +29,12 @@ package com.furusystems.dconsole2.core.plugins {
 		private var _topLayer:Sprite;
 		private var _botLayer:Sprite;
 		private var _consoleBgLayer:Sprite;
-		private var _logManager:DLogManager
+		private var _logManager:DLogManager;
 		
 		public function PluginManager(scopeManager:ScopeManager, referenceManager:ReferenceManager, console:DConsole, topLayer:Sprite, botLayer:Sprite, consoleBackgroundLayer:Sprite, logManager:DLogManager) {
 			_logManager = logManager;
-			_topLayer = topLayer
-			_botLayer = botLayer
+			_topLayer = topLayer;
+			_botLayer = botLayer;
 			_consoleBgLayer = consoleBackgroundLayer;
 			
 			_scopeManager = scopeManager;

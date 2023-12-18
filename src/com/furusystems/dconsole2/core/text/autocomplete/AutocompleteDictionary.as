@@ -24,7 +24,7 @@
 			stringContents.push(str);
 			stringContentsLowercase.push(str.toLowerCase()); //TODO: This is a terrible way to solve the search problem. Must fix.
 			var strParts:Array = str.split("");
-			strParts.push(new String());
+			strParts.push('');
 			insert(strParts, basepage);
 		}
 		

@@ -16,7 +16,7 @@ package com.furusystems.dconsole2.core.strings {
 		
 		public function get(id:String):String {
 			if (_dictionary[id] != null) {
-				return _dictionary[id] as String;
+				return _dictionary[id];
 			}
 			return "undefined";
 		}

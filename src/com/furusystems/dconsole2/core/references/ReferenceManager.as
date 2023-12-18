@@ -35,7 +35,7 @@
 		
 		public function clearReferenceByName(name:String):void {
 			try {
-				delete(referenceDict[name])
+				delete(referenceDict[name]);
 				console.print("Cleared reference " + name, ConsoleMessageTypes.SYSTEM);
 				printReferences();
 			} catch (e:Error) {

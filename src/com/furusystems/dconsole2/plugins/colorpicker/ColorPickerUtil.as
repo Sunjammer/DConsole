@@ -1,4 +1,4 @@
-﻿package com.furusystems.dconsole2.plugins.colorpicker 
+﻿package com.furusystems.dconsole2.plugins.colorpicker
 {
 	import com.furusystems.dconsole2.core.output.ConsoleMessageTypes;
 	import com.furusystems.dconsole2.core.plugins.IDConsolePlugin;
@@ -124,7 +124,7 @@
 			_console.view.height = 2 * GUIUnits.SQUARE_UNIT;
 			visible = true;
 			_console.view.stage.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
-			_console.view.stage.addEventListener(MouseEvent.CLICK, onClick, false, Number.POSITIVE_INFINITY);
+			_console.view.stage.addEventListener(MouseEvent.CLICK, onClick, false, 99999999);
 			_console.print("Click anywhere to copy that color value to the clipboard", ConsoleMessageTypes.SYSTEM);
 			onMouseMove();
 		}

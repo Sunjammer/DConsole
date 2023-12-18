@@ -143,7 +143,7 @@ package com.furusystems.dconsole2.core.security {
 		 *  - Warns if it could not be executed.
 		 */
 		private function executeCallback():void {
-			if (typeof(callback) == "function") {
+			if (callback is "function") {
 				try {
 					callback();
 				} catch (error:Error) {

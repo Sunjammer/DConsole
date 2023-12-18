@@ -1,6 +1,5 @@
 package com.furusystems.dconsole2.plugins 
 {
-	import com.adobe.images.PNGEncoder;
 	import com.furusystems.dconsole2.IConsole;
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
@@ -36,12 +35,12 @@ package com.furusystems.dconsole2.plugins
 		public function saveScreenshot(target:DisplayObject = null,title:String = ""):void
 		{
 			var screenGrab:BitmapData = getScreenshot(target);
-			var pngBytes:ByteArray = PNGEncoder.encode(screenGrab);
+			var pngBytes:ByteArray; // = PNGEncoder.encode(screenGrab);
 			if (title == "") title = "Screenshot";
 			_fileRef.save(pngBytes, title + ".png");
 		}
 		public function getPNG(bitmapData:BitmapData):ByteArray {
-			return PNGEncoder.encode(bitmapData);
+			return null; //PNGEncoder.encode(bitmapData);
 		}
 		
 		/* INTERFACE com.furusystems.dconsole2.core.plugins.IDConsolePlugin */

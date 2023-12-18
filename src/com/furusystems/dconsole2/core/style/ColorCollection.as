@@ -17,11 +17,11 @@ package com.furusystems.dconsole2.core.style {
 		
 		public function getColor(name:String):uint {
 			name = name.toLowerCase();
-			for each (var n:XML in _xml.*) {
-				if (n.localName().toLowerCase() == name) {
-					return uint(n.text());
+			/*for(var n in _xml) {
+				if (n.localName == name) {
+					return uint(n.text);
 				}
-			}
+			}*/
 			throw new Error("No such color '" + name + "'");
 		}
 		

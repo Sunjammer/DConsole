@@ -97,7 +97,7 @@ package com.furusystems.dconsole2.plugins.inspectorviews.propertyview.fieldtypes
 		{
 			if (!controlField.hasFocus) {
 				if (_access != "writeonly") {
-					var t:* = _objRef[0][controlField.targetProperty];
+					var t = _objRef[0][controlField.targetProperty];
 					if (t) controlField.value = t;
 				}
 			}
@@ -138,7 +138,7 @@ package com.furusystems.dconsole2.plugins.inspectorviews.propertyview.fieldtypes
 		
 		private function updateFieldWidths():void
 		{
-			nameField.width = controlField.x = Math.floor(_prevWidth * _splitRatio)
+			nameField.width = controlField.x = Math.floor(_prevWidth * _splitRatio);
 			controlField.width = Math.floor(_prevWidth * (1-_splitRatio));
 			splitControl.x = _prevWidth * _splitRatio;
 		}

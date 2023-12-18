@@ -192,7 +192,7 @@
 			var a:Vector.<VariableDesc> = currentScope.variables;
 			var cv:*;
 			console.print("	variables: " + a.length);
-			var i:int
+			var i:int;
 			for (i = 0; i < a.length; i++) {
 				var vd:VariableDesc = a[i];
 				console.print("		" + vd.name + ": " + vd.type);
@@ -238,7 +238,7 @@
 			var cv:*;
 			if (a.length < 1)
 				return;
-			var i:int
+			var i:int;
 			var out:Array = [];
 			for (i = 0; i < a.length; i++) {
 				var vd:VariableDesc = a[i];

@@ -53,18 +53,19 @@ package com.furusystems.messaging.pimp {
 			var o:Object = queueItem.origin;
 			var d:Object = queueItem.data;
 			var tempData:MessageData = new MessageData();
+			var table:Dictionary;
 			tempData.message = m;
 			tempData.source = queueItem.origin;
 			tempData.data = queueItem.data;
 			if (_recipientsTable[m] != null) {
-				var table:Dictionary = _recipientsTable[m];
+				table = _recipientsTable[m];
 				for each (var listener:IMessageReceiver in table) {
 					listener.onMessage(tempData);
 				}
 			}
 			if (_callbacksTable[m] != null) {
 				table = _callbacksTable[m];
-				for each (var callback:Function in table) {
+				for each (var callback in table) {
 					switch (callback.length) {
 						case 1:
 							callback(tempData);
@@ -230,18 +231,19 @@ package com.furusystems.messaging.pimp {
 			var o:Object = queueItem.origin;
 			var d:Object = queueItem.data;
 			var tempData:MessageData = new MessageData();
+			var table:Dictionary;
 			tempData.message = m;
 			tempData.source = queueItem.origin;
 			tempData.data = queueItem.data;
 			if (_recipientsTable[m] != null) {
-				var table:Dictionary = _recipientsTable[m];
+				table = _recipientsTable[m];
 				for each (var listener:IMessageReceiver in table) {
 					listener.onMessage(tempData);
 				}
 			}
 			if (_callbacksTable[m] != null) {
 				table = _callbacksTable[m];
-				for each (var callback:Function in table) {
+				for each (var callback in table) {
 					switch (callback.length) {
 						case 1:
 							callback(tempData);

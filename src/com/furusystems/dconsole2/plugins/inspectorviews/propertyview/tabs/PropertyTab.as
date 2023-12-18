@@ -62,7 +62,7 @@ package com.furusystems.dconsole2.plugins.inspectorviews.propertyview.tabs
 			}
 			tally /= _contentFields.length;
 			tally += 0.1; //slight bias
-			for each(p in _contentFields) {
+			for each(var p in _contentFields) {
 				p.splitRatio = tally;
 			}
 		}

@@ -1,5 +1,6 @@
-package com.furusystems.dconsole2.core.gui.maindisplay {
-	//{
+package com.furusystems.dconsole2.core.gui.maindisplay
+{
+	// {
 	import com.furusystems.dconsole2.core.animation.ConsoleTweener;
 	import com.furusystems.dconsole2.core.animation.EasingTween;
 	import com.furusystems.dconsole2.core.effects.Filters;
@@ -42,20 +43,22 @@ package com.furusystems.dconsole2.core.gui.maindisplay {
 	import flash.geom.Rectangle;
 	import flash.ui.Mouse;
 	import flash.ui.MouseCursor;
-	
-	//}
+
+	// }
+
 	/**
 	 * Root level of the console main view
 	 * @author Andreas Roenning
 	 */
-	public class ConsoleView extends Sprite implements IContainable, ILayoutContainer {
+	public class ConsoleView extends Sprite implements IContainable, ILayoutContainer
+	{
 		static public const SHOW_TIME:Number = 0.4;
 		private var _console:DConsole;
 		private var _rect:Rectangle;
-		
-		private var _mainSection:MainSection; //section containing main console io
-		private var _inspectorSection:InspectorSection; //section containing display list inspector
-		private var _headerSection:HeaderSection; //section containing toolbar
+
+		private var _mainSection:MainSection; // section containing main console io
+		private var _inspectorSection:InspectorSection; // section containing display list inspector
+		private var _headerSection:HeaderSection; // section containing toolbar
 		private var _children:Array = [];
 		private var _mainSplit:HorizontalSplit;
 		private var _mainSplitDragBar:Sprite;
@@ -63,128 +66,134 @@ package com.furusystems.dconsole2.core.gui.maindisplay {
 		private var _mainSplitToggled:Boolean;
 		private var _inspector:Inspector;
 		private var _isDragging:Boolean;
-		
+
 		private var _scalePreview:Shape = new Shape();
 		private var _tempScaleRect:Rectangle = new Rectangle();
 		private var _prevSplitPos:int = -1;
 		private var _texture:BitmapData;
 		private var _bg:Sprite = new Sprite();
 		private var _inspectorVisible:Boolean = false;
-		
+
 		private var _scaleHandle:ScaleHandle;
-		
+
 		private var _prevRect:Rectangle = null;
 		private var _firstRun:Boolean;
-		
-		public function get input():InputField {
+
+		public function get input():InputField
+		{
 			return _mainSection.input;
 		}
-		;
-		
-		public function get output():OutputField {
+
+		public function get output():OutputField
+		{
 			return _mainSection.output;
 		}
-		;
-		
-		public function get filtertabs():FilterTabRow {
+
+		public function get filtertabs():FilterTabRow
+		{
 			return _mainSection.filterTabs;
 		}
-		;
-		
-		public function get assistant():Assistant {
+
+		public function get assistant():Assistant
+		{
 			return _mainSection.assistant;
 		}
-		;
-		
-		public function get inspector():Inspector {
+
+		public function get inspector():Inspector
+		{
 			return _inspectorSection.inspector;
 		}
-		;
-		
-		public function get toolbar():ConsoleToolbar {
+
+		public function get toolbar():ConsoleToolbar
+		{
 			return _headerSection.toolBar;
 		}
-		;
-		
-		public function get scaleHandle():ScaleHandle {
+
+		public function get scaleHandle():ScaleHandle
+		{
 			return _scaleHandle;
 		}
-		;
-		
-		public function ConsoleView(console:DConsole = null) {
+
+		public function ConsoleView(console:DConsole = null)
+		{
 			_scaleHandle = new ScaleHandle(console);
 			visible = false;
-			
+
 			_console = console;
-			
+
 			_texture = new BitmapData(3, 3, true, 0);
 			_texture.setPixel32(0, 0, 0xCC000000);
-			
+
 			tabEnabled = tabChildren = false;
 			_mainSection = new MainSection(console);
 			_inspectorSection = new InspectorSection(console);
 			_headerSection = new HeaderSection(console);
-			
+
 			addChild(_bg);
 			addChild(_headerSection);
-			
+
 			_mainSplitDragBar = new Sprite();
 			_mainSplit = new HorizontalSplit();
 			_mainSplit.leftCell.addChild(_inspectorSection);
 			_mainSplit.rightCell.addChild(_mainSection);
 			_mainSplitDragBar.alpha = 0;
 			_mainSplit.splitRatio = 0.2;
-			
+
 			addChild(_mainSplit);
 			addChild(_mainSplitDragBar);
 			addChild(_scaleHandle);
-			
+
 			_mainSplitDragBar.addEventListener(MouseEvent.MOUSE_DOWN, beginMainSplitDrag);
 			_mainSplitDragBar.addEventListener(MouseEvent.MOUSE_OVER, onMainsplitMouseOver);
 			_mainSplitDragBar.addEventListener(MouseEvent.MOUSE_OUT, onMainsplitMouseOut);
 			_mainSplitDragBar.addEventListener(MouseEvent.DOUBLE_CLICK, toggleMainSplit);
 			_mainSplitDragBar.doubleClickEnabled = true;
 			_mainSplitDragBar.buttonMode = true;
-			
+
 			scaleHandle.addEventListener(MouseEvent.MOUSE_DOWN, beginScaleDrag);
 			scaleHandle.addEventListener(MouseEvent.DOUBLE_CLICK, onScaleDoubleclick);
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
-			
+
 			tabEnabled = tabChildren = false;
-			
+
 			_console.messaging.addCallback(Notifications.INSPECTOR_VIEW_REMOVED, onInspectorViewCountChange);
 			_console.messaging.addCallback(Notifications.INSPECTOR_VIEW_ADDED, onInspectorViewCountChange);
-			
+
 			_console.messaging.addCallback(Notifications.TOOLBAR_DRAG_START, onToolbarDrag);
 			_console.messaging.addCallback(Notifications.TOOLBAR_DRAG_STOP, onToolbarDrag);
 			_console.messaging.addCallback(Notifications.TOOLBAR_DRAG_UPDATE, onToolbarDrag);
-			
+
 			_console.messaging.addCallback(Notifications.CORNER_DRAG_START, onCornerScale);
 			_console.messaging.addCallback(Notifications.CORNER_DRAG_STOP, onCornerScale);
 			_console.messaging.addCallback(Notifications.CORNER_DRAG_UPDATE, onCornerScale);
-			
-			//setupBloom();
-			//addChild(bloom);
+
+			// setupBloom();
+			// addChild(bloom);
 		}
-		
-		private function setupBloom():void {
+
+		private function setupBloom():void
+		{
 			addEventListener(Event.ENTER_FRAME, updateBloom);
 			scanlinePattern.setPixel32(0, 0, 0xFF808080);
 			scanlinePattern.setPixel32(0, 1, 0xFFeeeeee);
 		}
-		
-		public function toggleBloom():void {
+
+		public function toggleBloom():void
+		{
 			bloomEnabled = !bloomEnabled;
-			if (!bloomEnabled) {
+			if (!bloomEnabled)
+			{
 				if (contains(bloom))
 					removeChild(bloom);
 				if (contains(scanlines))
 					removeChild(scanlines);
 			}
 		}
-		
-		private function onCornerScale(md:MessageData):void {
-			switch (md.message) {
+
+		private function onCornerScale(md:MessageData):void
+		{
+			switch (md.message)
+			{
 				case Notifications.CORNER_DRAG_START:
 					Mouse.cursor = MouseCursor.HAND;
 					break;
@@ -192,7 +201,7 @@ package com.furusystems.dconsole2.core.gui.maindisplay {
 					Mouse.cursor = MouseCursor.AUTO;
 					break;
 				case Notifications.CORNER_DRAG_UPDATE:
-					_tempScaleRect.height = Math.round(Math.max(GUIUnits.SQUARE_UNIT * 5, Math.min(stage.stageHeight - GUIUnits.SQUARE_UNIT, (stage.mouseY - y))) / GUIUnits.SQUARE_UNIT) * GUIUnits.SQUARE_UNIT; //TODO: This is messy as hell!
+					_tempScaleRect.height = Math.round(Math.max(GUIUnits.SQUARE_UNIT * 5, Math.min(stage.stageHeight - GUIUnits.SQUARE_UNIT, (stage.mouseY - y))) / GUIUnits.SQUARE_UNIT) * GUIUnits.SQUARE_UNIT; // TODO: This is messy as hell!
 					_tempScaleRect.width = stage.mouseX - x;
 					var r:Rectangle = rect;
 					r.height = _tempScaleRect.height;
@@ -202,45 +211,57 @@ package com.furusystems.dconsole2.core.gui.maindisplay {
 					break;
 			}
 		}
-		
-		override public function get x():Number {
+
+		override public function get x():Number
+		{
 			return super.x;
 		}
-		
-		override public function set x(value:Number):void {
-			if (super.x == value) return;
+
+		override public function set x(value:Number):void
+		{
+			if (super.x == value)
+				return;
 			super.x = _console.persistence.consoleX = value;
 		}
-		
-		override public function get y():Number {
+
+		override public function get y():Number
+		{
 			return super.y;
 		}
-		
-		override public function set y(value:Number):void {
-			if (super.y == value) return;
+
+		override public function set y(value:Number):void
+		{
+			if (super.y == value)
+				return;
 			super.y = _console.persistence.consoleY = value;
 		}
-		
-		override public function get height():Number {
+
+		override public function get height():Number
+		{
 			return _console.persistence.consoleHeight;
 		}
-		
-		override public function set height(value:Number):void {
+
+		override public function set height(value:Number):void
+		{
 			_console.persistence.consoleHeight = value;
 			rect = _console.persistence.rect;
 		}
-		
-		override public function get width():Number {
+
+		override public function get width():Number
+		{
 			return _console.persistence.consoleWidth;
 		}
-		
-		override public function set width(value:Number):void {
+
+		override public function set width(value:Number):void
+		{
 			_console.persistence.consoleWidth = value;
 			rect = _console.persistence.rect;
 		}
-		
-		private function onToolbarDrag(md:MessageData):void {
-			switch (md.message) {
+
+		private function onToolbarDrag(md:MessageData):void
+		{
+			switch (md.message)
+			{
 				case Notifications.TOOLBAR_DRAG_START:
 					Mouse.cursor = MouseCursor.HAND;
 					break;
@@ -254,17 +275,22 @@ package com.furusystems.dconsole2.core.gui.maindisplay {
 					y += md.data.y;
 					x = int(Math.max(0, Math.min(x, stage.stageWidth - _rect.width)));
 					y = int(Math.max(0, Math.min(y, stage.stageHeight - _rect.height)));
-					
+
 					scaleHandle.visible = true;
-					if (y <= 2) {
+					if (y <= 2)
+					{
 						_console.messaging.send(Notifications.SHOW_DOCKING_GUIDE, DockingGuides.TOP, this);
 						_console.persistence.dockState.value = DConsole.DOCK_TOP;
 						_scaleHandle.y = _rect.height;
-					} else if (y >= stage.stageHeight - _rect.height - 2) {
+					}
+					else if (y >= stage.stageHeight - _rect.height - 2)
+					{
 						_console.messaging.send(Notifications.SHOW_DOCKING_GUIDE, DockingGuides.BOT, this);
 						_console.persistence.dockState.value = DConsole.DOCK_BOT;
 						_scaleHandle.y = -scaleHandle.height;
-					} else {
+					}
+					else
+					{
 						_console.messaging.send(Notifications.HIDE_DOCKING_GUIDE, null, this);
 						_console.persistence.dockState.value = DConsole.DOCK_WINDOWED;
 						scaleHandle.visible = false;
@@ -273,17 +299,20 @@ package com.furusystems.dconsole2.core.gui.maindisplay {
 					break;
 			}
 		}
-		
-		private function onInspectorViewCountChange(md:MessageData):void {
+
+		private function onInspectorViewCountChange(md:MessageData):void
+		{
 			_mainSplit.splitRatio = _console.persistence.verticalSplitRatio.value;
 			doLayout();
 		}
-		
-		private function onAddedToStage(e:Event):void {
+
+		private function onAddedToStage(e:Event):void
+		{
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			_firstRun = true;
 			initFromPersistence();
-			switch (dockingMode) {
+			switch (dockingMode)
+			{
 				case DConsole.DOCK_BOT:
 					y = stage.stageHeight + 10;
 					break;
@@ -294,34 +323,42 @@ package com.furusystems.dconsole2.core.gui.maindisplay {
 			onParentUpdate(_rect);
 			_firstRun = false;
 		}
-		
-		private function initFromPersistence():void {
+
+		private function initFromPersistence():void
+		{
 			_mainSplit.splitRatio = _console.persistence.verticalSplitRatio.value;
 			inspector.enabled = _mainSplit.splitRatio > 0;
 			rect = _console.persistence.rect;
 			x = _console.persistence.consoleX;
 			y = _console.persistence.consoleY;
 		}
-		
-		public function get splitRatio():Number {
+
+		public function get splitRatio():Number
+		{
 			return _mainSplit.splitRatio;
 		}
-		
-		public function set splitRatio(n:Number):void {
+
+		public function set splitRatio(n:Number):void
+		{
 			_mainSplit.splitRatio = n;
 		}
-		
-		private function onScaleDoubleclick(e:MouseEvent):void {
+
+		private function onScaleDoubleclick(e:MouseEvent):void
+		{
 			var r:Rectangle = rect;
-			if (r.height < 50) {
+			if (r.height < 50)
+			{
 				r.height = stage.stageHeight * .8;
-			} else {
+			}
+			else
+			{
 				r.height = 0;
 			}
 			rect = r;
 		}
-		
-		private function beginScaleDrag(e:MouseEvent):void {
+
+		private function beginScaleDrag(e:MouseEvent):void
+		{
 			Mouse.cursor = MouseCursor.HAND;
 			scaleHandle.dragging = true;
 			_scalePreview.visible = true;
@@ -329,22 +366,26 @@ package com.furusystems.dconsole2.core.gui.maindisplay {
 			stage.addEventListener(MouseEvent.MOUSE_UP, completeScale);
 			onScaleUpdate(e);
 		}
-		
-		private function completeScale(e:MouseEvent):void {
+
+		private function completeScale(e:MouseEvent):void
+		{
 			Mouse.cursor = MouseCursor.AUTO;
 			scaleHandle.dragging = false;
 			stage.removeEventListener(MouseEvent.MOUSE_MOVE, onScaleUpdate);
 			stage.removeEventListener(MouseEvent.MOUSE_UP, completeScale);
 			doLayout();
 		}
-		
-		private function onScaleUpdate(e:MouseEvent):void {
+
+		private function onScaleUpdate(e:MouseEvent):void
+		{
 			Mouse.cursor = MouseCursor.HAND;
 			var r:Rectangle = rect;
-			switch (dockingMode) {
+			switch (dockingMode)
+			{
 				case DConsole.DOCK_BOT:
 					_tempScaleRect.height = Math.round(Math.max(GUIUnits.SQUARE_UNIT * 1, Math.min(stage.stageHeight - GUIUnits.SQUARE_UNIT, stage.stageHeight - stage.mouseY - 8)) / GUIUnits.SQUARE_UNIT) * GUIUnits.SQUARE_UNIT;
-					if (r.height != _tempScaleRect.height) {
+					if (r.height != _tempScaleRect.height)
+					{
 						r.height = height = _tempScaleRect.height;
 						rect = r;
 						y = stage.stageHeight - r.height;
@@ -352,50 +393,66 @@ package com.furusystems.dconsole2.core.gui.maindisplay {
 					break;
 				default:
 					_tempScaleRect.height = Math.round(Math.max(GUIUnits.SQUARE_UNIT * 1, Math.min(stage.stageHeight - GUIUnits.SQUARE_UNIT, stage.mouseY - 8)) / GUIUnits.SQUARE_UNIT) * GUIUnits.SQUARE_UNIT;
-					if (r.height != _tempScaleRect.height) {
+					if (r.height != _tempScaleRect.height)
+					{
 						r.height = height = _tempScaleRect.height;
 						rect = r;
 					}
 			}
 		}
-		
-		private function showInspector():void {
-			if (!_inspectorVisible || _firstRun) {
+
+		private function showInspector():void
+		{
+			if (!_inspectorVisible || _firstRun)
+			{
 				_mainSplit.setSplitPos(_prevSplitPos);
 				_inspectorVisible = true;
 				inspector.enabled = _prevSplitPos > 0;
 			}
 		}
-		
-		private function hideInspector():void {
-			if (_inspectorVisible || _firstRun) {
+
+		private function hideInspector():void
+		{
+			if (_inspectorVisible || _firstRun)
+			{
 				_inspectorVisible = inspector.enabled = false;
 				_prevSplitPos = _mainSplit.getSplitPos();
 				_mainSplit.setSplitPos(0);
 			}
 		}
-		
-		public function setHeaderText(text:String):void {
+
+		public function setHeaderText(text:String):void
+		{
 			_headerSection.toolBar.setTitle(text);
 		}
-		
-		private function doLayout():void {
-			if (_prevRect) {
-				if (_prevRect.equals(_rect)) return;
+
+		private function doLayout():void
+		{
+			if (_prevRect)
+			{
+				if (_prevRect.equals(_rect))
+					return;
 			}
 			var r:Rectangle = _rect.clone();
 			_headerSection.onParentUpdate(r);
-			if (_headerSection.visible) {
+			if (_headerSection.visible)
+			{
 				r.y = GUIUnits.SQUARE_UNIT;
 				r.height -= GUIUnits.SQUARE_UNIT;
-			} else { //if there is no header, move us up a spot
+			}
+			else
+			{
+				// if there is no header, move us up a spot
 			}
 			_mainSplit.rect = r;
 			_mainSplitDragBar.graphics.clear();
-			if (rect.height < 128 || !inspector.viewsAdded) {
+			if (rect.height < 128 || !inspector.viewsAdded)
+			{
 				hideInspector();
 				_mainSplit.setSplitPos(0);
-			} else {
+			}
+			else
+			{
 				showInspector();
 				_mainSplitDragBar.graphics.beginFill(0, 0.1);
 				_mainSplitDragBar.graphics.drawRect(0, 0, 8, r.height);
@@ -403,8 +460,9 @@ package com.furusystems.dconsole2.core.gui.maindisplay {
 				_mainSplitDragBar.y = _mainSplit.y;
 			}
 			r.height = GUIUnits.SQUARE_UNIT;
-			
-			switch (dockingMode) {
+
+			switch (dockingMode)
+			{
 				case DConsole.DOCK_BOT:
 					r.y = -scaleHandle.height;
 					scaleHandle.onParentUpdate(r);
@@ -414,84 +472,97 @@ package com.furusystems.dconsole2.core.gui.maindisplay {
 					scaleHandle.onParentUpdate(r);
 					break;
 			}
-			
+
 			_prevRect = r.clone();
 		}
-		
-		private function onMainsplitMouseOut(e:MouseEvent):void {
+
+		private function onMainsplitMouseOut(e:MouseEvent):void
+		{
 			if (_isDragging)
 				return;
 			_mainSplitDragBar.alpha = 0;
 			_mainSplitDragBar.blendMode = BlendMode.NORMAL;
 			Mouse.cursor = MouseCursor.AUTO;
 		}
-		
-		private function onMainsplitMouseOver(e:MouseEvent):void {
+
+		private function onMainsplitMouseOver(e:MouseEvent):void
+		{
 			if (_isDragging)
 				return;
 			_mainSplitDragBar.alpha = 1;
 			_mainSplitDragBar.blendMode = BlendMode.INVERT;
 			Mouse.cursor = MouseCursor.HAND;
 		}
-		
-		private function toggleMainSplit(e:MouseEvent):void {
-			if (_mainSplit.getSplitPos() > 30) {
+
+		private function toggleMainSplit(e:MouseEvent):void
+		{
+			if (_mainSplit.getSplitPos() > 30)
+			{
 				_inspectorVisible = false;
 				_prevSplitPos = _mainSplit.getSplitPos();
 				_mainSplit.setSplitPos(0);
 				hideInspector();
-			} else {
+			}
+			else
+			{
 				_inspectorVisible = true;
 				_mainSplit.setSplitPos(_prevSplitPos = 300);
 				showInspector();
 			}
 			doLayout();
 		}
-		
-		private function beginMainSplitDrag(e:MouseEvent):void {
+
+		private function beginMainSplitDrag(e:MouseEvent):void
+		{
 			_isDragging = true;
 			_mainSplitDragBar.alpha = 1;
 			stage.addEventListener(MouseEvent.MOUSE_MOVE, updateMainSplitDrag);
 			stage.addEventListener(MouseEvent.MOUSE_UP, stopMainSplitDrag);
 		}
-		
-		private function stopMainSplitDrag(e:MouseEvent):void {
+
+		private function stopMainSplitDrag(e:MouseEvent):void
+		{
 			_isDragging = false;
 			_mainSplitDragBar.alpha = 0;
 			stage.removeEventListener(MouseEvent.MOUSE_MOVE, updateMainSplitDrag);
 			stage.removeEventListener(MouseEvent.MOUSE_UP, stopMainSplitDrag);
 			Mouse.cursor = MouseCursor.AUTO;
 		}
-		
-		private function updateMainSplitDrag(e:MouseEvent):void {
+
+		private function updateMainSplitDrag(e:MouseEvent):void
+		{
 			Mouse.cursor = MouseCursor.HAND;
 			var p:int = Math.max(0, Math.min(_rect.width / 2, mouseX));
 			if (p < 30)
 				p = 0;
-			
+
 			inspector.enabled = p > 0;
 			_mainSplit.setSplitPos(p);
-			
+
 			_console.persistence.verticalSplitRatio.value = _mainSplit.splitRatio;
 			doLayout();
 		}
-		
-		override public function addChild(child:DisplayObject):DisplayObject {
+
+		override public function addChild(child:DisplayObject):DisplayObject
+		{
 			children.push(child);
 			return super.addChild(child);
 		}
-		
+
 		/* INTERFACE com.furusystems.dconsole2.core.gui.layout.IContainable */
-		
-		public function onParentUpdate(allotedRect:Rectangle):void {
+
+		public function onParentUpdate(allotedRect:Rectangle):void
+		{
 			allotedRect.height = Math.floor(allotedRect.height);
 			allotedRect.width = Math.round(allotedRect.width);
 			rect = allotedRect;
 		}
-		
-		public function show():void {
+
+		public function show():void
+		{
 			visible = output.visible = true;
-			switch (dockingMode) {
+			switch (dockingMode)
+			{
 				case DConsole.DOCK_WINDOWED:
 					onShown();
 					break;
@@ -504,18 +575,22 @@ package com.furusystems.dconsole2.core.gui.maindisplay {
 					break;
 			}
 		}
-		
-		private function onShown():void {
+
+		private function onShown():void
+		{
 			_console.messaging.send(Notifications.CONSOLE_VIEW_TRANSITION_COMPLETE, true);
 		}
-		
-		public function hide():void {
-			
-			if (!stage) {
+
+		public function hide():void
+		{
+
+			if (!stage)
+			{
 				onHidden();
 				return;
 			}
-			switch (dockingMode) {
+			switch (dockingMode)
+			{
 				case DConsole.DOCK_WINDOWED:
 					onHidden();
 					break;
@@ -528,10 +603,12 @@ package com.furusystems.dconsole2.core.gui.maindisplay {
 					break;
 			}
 		}
-		
-		public function maximize():void {
+
+		public function maximize():void
+		{
 			var r:Rectangle;
-			switch (dockingMode) {
+			switch (dockingMode)
+			{
 				case DConsole.DOCK_WINDOWED:
 					dockingMode = DConsole.DOCK_TOP;
 					maximize();
@@ -546,24 +623,27 @@ package com.furusystems.dconsole2.core.gui.maindisplay {
 					break;
 			}
 		}
-		
-		public function minimize():void {
+
+		public function minimize():void
+		{
 			var r:Rectangle = _rect;
-			switch (dockingMode) {
+			switch (dockingMode)
+			{
 				case DConsole.DOCK_WINDOWED:
 					r.height = 5 * GUIUnits.SQUARE_UNIT;
 					rect = r;
 					break;
 				default:
 					r.height = GUIUnits.SQUARE_UNIT;
-					//r.width = stage.stageWidth;
+					// r.width = stage.stageWidth;
 					updateDocking();
 					rect = r;
 			}
 			output.drawMessages();
 		}
-		
-		public function consolidateView():void {
+
+		public function consolidateView():void
+		{
 			var r:Rectangle = _console.persistence.rect;
 			x = r.x;
 			y = r.y;
@@ -571,66 +651,77 @@ package com.furusystems.dconsole2.core.gui.maindisplay {
 			height = r.height;
 			updateDocking();
 		}
-		
-		private function onHidden():void {
+
+		private function onHidden():void
+		{
 			visible = output.visible = false;
 			_console.messaging.send(Notifications.CONSOLE_VIEW_TRANSITION_COMPLETE, false);
 		}
-		
-		public function get children():Array {
+
+		public function get children():Array
+		{
 			return _children;
 		}
-		
+
 		/* INTERFACE com.furusystems.dconsole2.core.gui.layout.ILayoutContainer */
-		
-		public function set rect(r:Rectangle):void {
-			//if (_rect) {
-				//if (_rect.equals(r)) return;
-			//}
+
+		public function set rect(r:Rectangle):void
+		{
+			// if (_rect) {
+			// if (_rect.equals(r)) return;
+			// }
 			_rect = r;
 			_rect.x = _rect.y = 0;
 			_rect.height = Math.floor(Math.max(minHeight, _rect.height) / GUIUnits.SQUARE_UNIT) * GUIUnits.SQUARE_UNIT;
 			_rect.width = int(Math.max(minWidth, _rect.width));
 			_bg.graphics.clear();
 			_bg.graphics.lineStyle(0, Colors.CORE);
-			//_bg.graphics.beginBitmapFill(_texture, null, true);
+			// _bg.graphics.beginBitmapFill(_texture, null, true);
 			_bg.graphics.drawRect(0, 0, _rect.width, _rect.height);
 			_bg.graphics.endFill();
-			//scrollRect = _rect;
-			
+			// scrollRect = _rect;
+
 			_console.persistence.consoleWidth = _rect.width;
 			_console.persistence.consoleHeight = _rect.height;
 			doLayout();
 		}
-		
-		public function get rect():Rectangle {
+
+		public function get rect():Rectangle
+		{
 			return _console.persistence.rect;
 		}
-		
-		public function get minHeight():Number {
+
+		public function get minHeight():Number
+		{
 			return 32;
 		}
-		
-		public function get minWidth():Number {
+
+		public function get minWidth():Number
+		{
 			return 0;
 		}
-		
-		public function get mainSection():MainSection {
+
+		public function get mainSection():MainSection
+		{
 			return _mainSection;
 		}
-		
-		public function get dockingMode():int {
+
+		public function get dockingMode():int
+		{
 			return _console.persistence.dockState.value;
 		}
-		
-		public function set dockingMode(value:int):void {
+
+		public function set dockingMode(value:int):void
+		{
 			_console.persistence.dockState.value = value;
 			updateDocking();
 		}
-		
-		private function updateDocking():void {
+
+		private function updateDocking():void
+		{
 			scaleHandle.visible = true;
-			switch (dockingMode) {
+			switch (dockingMode)
+			{
 				case DConsole.DOCK_TOP:
 					_rect.width = stage.stageWidth;
 					rect = _rect;
@@ -651,14 +742,15 @@ package com.furusystems.dconsole2.core.gui.maindisplay {
 			}
 			assistant.cornerHandle.visible = !scaleHandle.visible;
 		}
-		
+
 		private var bloomBmp:BitmapData;
 		private var bloom:Bitmap = new Bitmap();
 		private var scanlines:Shape = new Shape();
 		private var scanlinePattern:BitmapData = new BitmapData(1, 3, true, 0);
 		private var bloomEnabled:Boolean = false;
-		
-		private function updateBloom(e:Event = null):void {
+
+		private function updateBloom(e:Event = null):void
+		{
 			if (!bloomEnabled)
 				return;
 			scanlines.graphics.clear();
@@ -666,7 +758,8 @@ package com.furusystems.dconsole2.core.gui.maindisplay {
 			scanlines.graphics.drawRect(0, 0, output.width, output.height);
 			scanlines.graphics.endFill();
 			scanlines.blendMode = BlendMode.MULTIPLY;
-			if (bloomBmp) {
+			if (bloomBmp)
+			{
 				bloomBmp.dispose();
 			}
 			if (contains(bloom))
@@ -677,20 +770,20 @@ package com.furusystems.dconsole2.core.gui.maindisplay {
 			bloomBmp = new BitmapData(output.width, output.height, true, 0);
 			bloomBmp.lock();
 			bloomBmp.draw(output);
-			
+
 			bloomBmp.applyFilter(bloomBmp, bloomBmp.rect, new Point(), new BlurFilter(16, 16, 1));
 			bloomBmp.applyFilter(bloomBmp, bloomBmp.rect, new Point(), new BlurFilter(16, 16, 1));
 			bloomBmp.colorTransform(bloomBmp.rect, new ColorTransform(1, 2, 1));
 			bloomBmp.unlock();
 			bloom.bitmapData = bloomBmp;
-			
+
 			addChild(bloom);
 			addChild(scanlines);
-			
+
 			var p:Point = new Point(output.x, output.y);
 			p = output.parent.localToGlobal(p);
 			bloom.x = scanlines.x = p.x - x;
-			bloom.y = scanlines.y = p.y - y
+			bloom.y = scanlines.y = p.y - y;
 		}
 	}
 

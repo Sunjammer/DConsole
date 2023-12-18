@@ -17,7 +17,7 @@ package com.furusystems.dconsole2.plugins.inspectorviews.treeview.dfs
 				if (!n.childNodes) n.buildChildren();
 				n.expanded = false;
 				var neighbors:Vector.<ListNode> = n.childNodes;
-				var nLength:Number = neighbors.length;
+				var nLength:int = neighbors.length;
 				
 				for (var i:int =0; i< nLength; i++) {
 					openList.unshift(neighbors[nLength - i - 1]);

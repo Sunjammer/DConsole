@@ -11,7 +11,6 @@ package com.furusystems.dconsole2.plugins.errorcodeutil
  */
 	public class ErrorLookupUtil implements IDConsolePlugin
 	{
-		[Embed(source='ErrorCodes2.xml',mimeType='application/octet-stream')]
 		private static var ERROR_CODE_XML:Class;
 		private var _errorCodes:XML;
 		private var _lastErrorDescribed:int;
@@ -47,7 +46,7 @@ package com.furusystems.dconsole2.plugins.errorcodeutil
 		private function describeError(codeQuery:int, verboseMode:Boolean = false ):void 
 		{
 			var out:String = null;
-			var list:XMLList = _errorCodes.*.(code == codeQuery);
+			var list:XMLList = _errorCodes.everything.where.code.is.codeQuery;
 			if (list.length() > 0) {
 				out = list[0].message;
 				if(verboseMode)	out = "\n"+list[0].description;

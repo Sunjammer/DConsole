@@ -14,12 +14,7 @@ package com.furusystems.dconsole2.utilities {
 		public function ThemeConfigurer(palette:PaletteView) {
 			this.palette = palette;
 		}
-		
-		public function save():XML {
-			var out:XML = new XML(<data/>);
-			return out;
-		}
-		
+
 		public function populate(theme:XML):void {
 			addNode(theme, 0, 0);
 		}
@@ -34,7 +29,7 @@ package com.furusystems.dconsole2.utilities {
 			addChild(tf);
 			var count:int = 1;
 			if (xml.name()) {
-				if (xml.text() != null) {
+				if (xml.text != null) {
 				}
 				tf.text = xml.name();
 				for each (var node:XML in xml.children()) {

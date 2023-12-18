@@ -26,7 +26,8 @@ package com.furusystems.dconsole2.core.inspector {
 	public class Inspector extends Sprite implements IContainable, IThemeable {
 		private var posClicked:Point;
 		private var dragging:Boolean;
-		private var vScrollBar:Shape, hScrollBar:Shape;
+		private var vScrollBar:Shape;
+		private var hScrollBar:Shape;
 		private var _modeSelector:ModeSelector;
 		private var _dims:Rectangle;
 		private var _currentView:AbstractInspectorView;

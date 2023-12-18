@@ -2,9 +2,7 @@ package com.furusystems.dconsole2.plugins.plugcollections
 {
 	import com.furusystems.dconsole2.core.plugins.IPluginBundle;
 	import com.furusystems.dconsole2.plugins.BatchRunnerUtil;
-	import com.furusystems.dconsole2.plugins.BugReporterUtil;
 	import com.furusystems.dconsole2.plugins.BytearrayHexdumpUtil;
-	import com.furusystems.dconsole2.plugins.ChainsawConnectorUtil;
 	import com.furusystems.dconsole2.plugins.ClassFactoryUtil;
 	import com.furusystems.dconsole2.plugins.colorpicker.ColorPickerUtil;
 	import com.furusystems.dconsole2.plugins.CommandMapperUtil;
@@ -17,7 +15,6 @@ package com.furusystems.dconsole2.plugins.plugcollections
 	import com.furusystems.dconsole2.plugins.invokegesture.InvokeGestureUtil;
 	import com.furusystems.dconsole2.plugins.JSONParserUtil;
 	import com.furusystems.dconsole2.plugins.JSRouterUtil;
-	import com.furusystems.dconsole2.plugins.LogFileUtil;
 	import com.furusystems.dconsole2.plugins.MathUtil;
 	import com.furusystems.dconsole2.plugins.measurebracket.MeasurementBracketUtil;
 	import com.furusystems.dconsole2.plugins.mediatester.MediaTesterUtil;
@@ -46,7 +43,6 @@ package com.furusystems.dconsole2.plugins.plugcollections
 				ClassFactoryUtil,
 				DialogUtil,
 				ControllerUtil,
-				LogFileUtil,
 				BatchRunnerUtil,
 				MediaTesterUtil,
 				ScreenshotUtil,
@@ -60,10 +56,8 @@ package com.furusystems.dconsole2.plugins.plugcollections
 				JSONParserUtil,
 				PropertyViewUtil,
 				StageUtil,
-				ChainsawConnectorUtil,
 				InvokeGestureUtil,
 				InputMonitorUtil,
-				BugReporterUtil,
 				TreeViewUtil,
 				SelectionHistoryUtil,
 				MathUtil

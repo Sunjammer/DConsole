@@ -177,10 +177,11 @@ package com.furusystems.dconsole2.plugins.measurebracket
 		{
 			var mx:Number = Math.max(0, Math.min(_console.view.stage.mouseX, _console.view.stage.stageWidth));
 			var my:Number = Math.max(0, Math.min(_console.view.stage.mouseY, _console.view.stage.stageHeight));
-			increment = 1
+			increment = 1;
 			var snap:Boolean = false;
+			var me:MouseEvent;
 			if (e is MouseEvent) {
-				var me:MouseEvent = e as MouseEvent
+				me = e as MouseEvent;
 				if (me.shiftKey) {
 					increment = 10;
 				}else {
@@ -260,11 +261,11 @@ package com.furusystems.dconsole2.plugins.measurebracket
 		 * @param	displayObject
 		 */
 		public function bracket(displayObject:DisplayObject):void {
-			_console.print("Measure tool bracketing: " + displayObject.name + ":" + typeof(displayObject));
+			_console.print("Measure tool bracketing: " + displayObject.name + ":" + displayObject);
 			visible = true;
 			_rect = displayObject.getRect(this);
 			render();
-			_console.print("Measure tool bracketing: " + displayObject.name + ":" + typeof(displayObject));
+			_console.print("Measure tool bracketing: " + displayObject.name + ":" + displayObject);
 		}
 		public function getMeasurements():String {
 			return _rect.toString();

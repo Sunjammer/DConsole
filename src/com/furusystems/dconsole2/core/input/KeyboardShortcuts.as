@@ -61,7 +61,7 @@ package com.furusystems.dconsole2.core.input {
 				throw new Error("Invalid keystroke + modifier combination");
 			}
 			
-			if (typeof(callback) != "function") {
+			if (!(callback is "function")) {
 				throw new Error("Invalid callback function");
 			}
 			

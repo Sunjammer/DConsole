@@ -19,7 +19,7 @@ package com.furusystems.logging.slf4as.utils {
 					} else {
 						return args.join(" ");
 					}
-				case PatternTypes.NONE:
+					break;
 				default:
 					return args.join(" ");
 			}

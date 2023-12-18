@@ -112,16 +112,6 @@ package com.furusystems.dconsole2.utilities {
 			return _selectedSwatch;
 		}
 		
-		public function save():XML {
-			var xml:XML = new XML(<data/>);
-			for (var i:int = swatchContainer.numChildren; i--; ) {
-				var swatch:ColorSwatch = swatchContainer.getChildAt(i) as ColorSwatch;
-				var n:XML = new XML(<{swatch.color.name}>{swatch.color.color.toString(16)}</{swatch.color.name}>);
-				xml.appendChild(n);
-			}
-			return xml;
-		}
-		
 		public function getColorByName(name:String):uint {
 			for (var i:int = swatchContainer.numChildren; i--; ) {
 				var swatch:ColorSwatch = swatchContainer.getChildAt(i) as ColorSwatch;

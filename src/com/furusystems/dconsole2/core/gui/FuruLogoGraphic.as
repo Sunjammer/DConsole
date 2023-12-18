@@ -8,7 +8,6 @@ package com.furusystems.dconsole2.core.gui {
 	 * @author Andreas Roenning
 	 */
 	public class FuruLogoGraphic extends Sprite {
-		[Embed(source='assets/furulogo.swf',mimeType='application/octet-stream')]
 		private var _sourceSWF:Class;
 		
 		public function FuruLogoGraphic() {

@@ -163,9 +163,18 @@
 import flash.geom.Point;
 
 internal final class BresenhamSharedData {
-	public var x0:int, x1:int, y0:int, y1:int, deltax:int, deltay:int, error:int, ystep:int;
+	public var x0:int;
+	public var x1:int;
+	public var y0:int;
+	public var y1:int;
+	public var deltax:int;
+	public var deltay:int;
+	public var error:int;
+	public var ystep:int;
 	public var steep:Boolean;
-	private var t1:int, t2:int, temp:int;
+	private var t1:int;
+	public var t2:int;
+	public var temp:int;
 	
 	public function update(p1:Point, p2:Point):void {
 		t1 = p1.y - p2.y;

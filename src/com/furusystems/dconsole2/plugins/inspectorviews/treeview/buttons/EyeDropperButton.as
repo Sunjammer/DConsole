@@ -9,7 +9,6 @@ package com.furusystems.dconsole2.plugins.inspectorviews.treeview.buttons
 	 */
 	public class EyeDropperButton extends AbstractButton
 	{
-		[Embed(source='../assets/eyeDropper.png')]
 		private static var bitmap:Class;
 		private static const ICON:BitmapData = Bitmap(new bitmap()).bitmapData;
 		public function EyeDropperButton()

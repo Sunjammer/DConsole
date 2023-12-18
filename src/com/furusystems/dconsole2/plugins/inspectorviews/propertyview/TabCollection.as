@@ -37,7 +37,7 @@ package com.furusystems.dconsole2.plugins.inspectorviews.propertyview
 		}
 		public function update(updateAppearance:Boolean = false):void
 		{
-			var h:Number = 0
+			var h:Number = 0;
 			for (var i:int = 0; i < _tabs.length; i++) 
 			{
 				var t:PropertyTab = _tabs[i];

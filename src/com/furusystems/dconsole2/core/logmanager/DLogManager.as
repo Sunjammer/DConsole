@@ -27,7 +27,7 @@ package com.furusystems.dconsole2.core.logmanager {
 		}
 		
 		private function onLogButtonClick(md:MessageData):void {
-			setCurrentLog(md.data as String);
+			setCurrentLog(md.data);
 		}
 		
 		public function clearAll():void {

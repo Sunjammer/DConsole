@@ -28,7 +28,7 @@ package com.furusystems.dconsole2.core.gui.maindisplay.assistant {
 		private var _snapshotDisplay:Bitmap = new Bitmap();
 		private var _time:Number = 0;
 		private var _prevTimeUpdate:Number = 0;
-		private var _cornerHandle:CornerScaleHandle
+		private var _cornerHandle:CornerScaleHandle;
 		
 		public function Assistant(console:IConsole) {
 			_cornerHandle = new CornerScaleHandle(console);
@@ -129,7 +129,7 @@ package com.furusystems.dconsole2.core.gui.maindisplay.assistant {
 		/* INTERFACE com.furusystems.dconsole2.core.interfaces.IThemeable */
 		
 		public function onThemeChange(md:MessageData):void {
-			_infoField.backgroundColor = Colors.ASSISTANT_BG
+			_infoField.backgroundColor = Colors.ASSISTANT_BG;
 			_infoField.textColor = Colors.ASSISTANT_FG;
 		}
 		

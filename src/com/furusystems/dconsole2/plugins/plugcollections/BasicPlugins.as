@@ -17,7 +17,6 @@ package com.furusystems.dconsole2.plugins.plugcollections
 				BytearrayHexdumpUtil,
 				ProductInfoUtil,
 				ClassFactoryUtil,
-				LogFileUtil,
 				ScreenshotUtil,
 				FontUtil,
 				JSRouterUtil,
@@ -27,8 +26,7 @@ package com.furusystems.dconsole2.plugins.plugcollections
 				StatsOutputUtil,
 				JSONParserUtil,
 				StageUtil,
-				SelectionHistoryUtil,
-				BugReporterUtil
+				SelectionHistoryUtil
 			]);
 		}
 		

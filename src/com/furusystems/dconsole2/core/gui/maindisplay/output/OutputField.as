@@ -305,7 +305,7 @@ package com.furusystems.dconsole2.core.gui.maindisplay.output {
 				}
 				if (showTimeStamp) {
 					fmt = messageVisible ? TextFormats.outputTformatTimeStamp : TextFormats.outputTformatHidden;
-					date.setTime(msg.timestamp)
+					date.setTime(msg.timestamp);
 					var dateStr:String = " " + date.toLocaleDateString() + " " + date.toLocaleTimeString() + " ";
 					lineLength += dateStr.length;
 					appendWithFormat(dateStr, fmt);

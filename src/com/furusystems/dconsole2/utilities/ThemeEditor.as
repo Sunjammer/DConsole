@@ -14,9 +14,7 @@ package com.furusystems.dconsole2.utilities {
 		private var _theme:XML;
 		
 		//TEMP
-		[Embed(source='../core/style/themes/solarized/solarized_colors.xml',mimeType='application/octet-stream')]
 		private var DEFAULT_COLOR_XML:Class;
-		[Embed(source='../core/style/themes/solarized/solarized_dark.xml',mimeType='application/octet-stream')]
 		private var DEFAULT_THEME_XML:Class;
 		private var _colorSelector:ColorSelector;
 		private var palette:PaletteView;
@@ -62,7 +60,7 @@ package com.furusystems.dconsole2.utilities {
 		
 		private function createPalette():void {
 			var colors:Vector.<ColorDef> = new Vector.<ColorDef>();
-			for each (var xml:XML in _colors.*) {
+			for each (var xml:XML in _colors.everything) {
 				colors.push(new ColorDef(xml.name(), uint(String(xml))));
 			}
 			palette.setColors(colors);
@@ -77,7 +75,7 @@ package com.furusystems.dconsole2.utilities {
 		}
 		
 		public function applyTheme():void {
-			_console.setTheme(palette.save(), themeConfig.save());
+			//_console.setTheme(palette.save(), themeConfig.save());
 		}
 	
 	}

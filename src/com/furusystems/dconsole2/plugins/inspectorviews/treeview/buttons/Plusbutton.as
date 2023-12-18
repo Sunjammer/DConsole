@@ -9,10 +9,9 @@ package com.furusystems.dconsole2.plugins.inspectorviews.treeview.buttons
 	 */
 	public class Plusbutton extends AbstractButton
 	{
-		[Embed(source='../assets/plusbutton.png')]
 		private static var BitmapClass:Class;
 		private static const ICON:BitmapData = Bitmap(new BitmapClass()).bitmapData;
-		public function Plusbutton() 
+		public function Plusbutton()
 		{
 			super(ICON.width, ICON.height);
 			setIcon(ICON);

@@ -1,4 +1,4 @@
-﻿package com.furusystems.dconsole2.plugins.monitoring 
+﻿package com.furusystems.dconsole2.plugins.monitoring
 {
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -94,7 +94,7 @@
 			
 			if(storeHistory){
 				item = new ContextMenuItem("Save xml");
-				item.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT, saveXML, false, 0, true);
+				//item.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT, saveXML, false, 0, true);
 				menu.customItems.push(item);
 			}
 			content.contextMenu = menu;
@@ -145,22 +145,6 @@
 			_barColor = color;
 		}
 		
-		private function saveXML(e:ContextMenuEvent):void 
-		{
-			var xml:XML = getXML();
-			new FileReference().save(xml, "Graph.xml");
-		}
-		public function getXML():XML 
-		{
-			var out:XML = <graph/>;
-			for (var i:int = 0; i < values.allValues.length; i+=2) 
-			{
-				var node:XML = <event>{values.allValues[i]}</event>;
-				node.@time = values.allValues[i + 1];
-				out.appendChild(node);
-			}
-			return out;
-		}
 		public function kill(e:Event = null):void 
 		{
 			_disposed = true;
@@ -271,7 +255,7 @@
 				renderStart.y = y;
 			}else {
 				renderEnd.x = x;
-				renderEnd.y = y
+				renderEnd.y = y;
 				Bresenham.line_pixel32(renderStart, renderEnd, graphBitmap, _graphColor);
 				renderStart.y = median;
 				renderStart.x = x;
